@@ -1,0 +1,5 @@
+D:\Projects\YandexDynDNS\YandexDynDNS\bin\Debug\YandexDynDNS.exe
+D:\Projects\YandexDynDNS\YandexDynDNS\bin\Debug\YandexDynDNS.pdb
+D:\Projects\YandexDynDNS\YandexDynDNS\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Projects\YandexDynDNS\YandexDynDNS\obj\x86\Debug\YandexDynDNS.exe
+D:\Projects\YandexDynDNS\YandexDynDNS\obj\x86\Debug\YandexDynDNS.pdb
