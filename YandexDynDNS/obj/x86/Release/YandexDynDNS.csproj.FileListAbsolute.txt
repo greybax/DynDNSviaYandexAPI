@@ -3,3 +3,10 @@ D:\Projects\YandexDynDNS\YandexDynDNS\bin\Release\YandexDynDNS.pdb
 D:\Projects\YandexDynDNS\YandexDynDNS\obj\x86\Release\ResolveAssemblyReference.cache
 D:\Projects\YandexDynDNS\YandexDynDNS\obj\x86\Release\YandexDynDNS.exe
 D:\Projects\YandexDynDNS\YandexDynDNS\obj\x86\Release\YandexDynDNS.pdb
+D:\Projects\DynDNSviaYandexAPI\trunk\YandexDynDNS\obj\x86\Release\YandexDynDNS.exe
+D:\Projects\DynDNSviaYandexAPI\trunk\YandexDynDNS\obj\x86\Release\YandexDynDNS.pdb
+D:\Projects\DynDNSviaYandexAPI\trunk\YandexDynDNS\bin\Release\domain.txt
+D:\Projects\DynDNSviaYandexAPI\trunk\YandexDynDNS\bin\Release\token.txt
+D:\Projects\DynDNSviaYandexAPI\trunk\YandexDynDNS\bin\Release\YandexDynDNS.exe
+D:\Projects\DynDNSviaYandexAPI\trunk\YandexDynDNS\bin\Release\YandexDynDNS.pdb
+D:\Projects\DynDNSviaYandexAPI\trunk\YandexDynDNS\obj\x86\Release\ResolveAssemblyReference.cache
