@@ -37,15 +37,17 @@ namespace YandexDynDNS
             {
                 var domainList = ParseCsvRow(line);
 
+                var subdomain = string.IsNullOrWhiteSpace(domainList[1]) ? "@" : domainList[1];
+
                 var recordId = GetDomainRecord(
                 "https://pddimp.yandex.ru/nsapi/get_domain_records.xml?" +
                 "token=" + domainList[0] +
-                "&domain=" + domainList[2]);
+                "&domain=" + domainList[2], subdomain);
 
                 EditARecord("https://pddimp.yandex.ru/nsapi/edit_a_record.xml?" +
                                "token=" + domainList[0] +
                                "&domain=" + domainList[2] +
-                               (string.IsNullOrWhiteSpace(domainList[1]) ? string.Empty : "&subdomain=" + domainList[1]) +
+                               "&subdomain=" + subdomain +
                                "&record_id=" + recordId +
                                //"&[ttl=<время жизни записи>]" +
                                "&content=" + myIp);
@@ -110,7 +112,7 @@ namespace YandexDynDNS
             return resp.ToArray();
         }
 
-        private static string GetDomainRecord(string uri)
+        private static string GetDomainRecord(string uri, string subdomain)
         {
             var client = new WebClient();
             var xml = client.DownloadString(uri);
@@ -125,8 +127,9 @@ namespace YandexDynDNS
 
             foreach (var item in
                     from item in nodes 
-                    let type = item.Attribute("type").Value 
-                    where type.Equals("A") 
+                    let type = item.Attribute("type").Value
+                    let subdomainXml = item.Attribute("subdomain").Value
+                    where type.Equals("A") && subdomainXml == subdomain
                     select item)
             {
                 return item.Attribute("id").Value;
