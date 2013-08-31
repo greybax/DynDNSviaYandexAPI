@@ -6,7 +6,20 @@ It's automatic tool for changed A-record your website, which delegeted on DNS Ya
 
 <h3> ver 2.0 </h3>
 Planned make application as Windows Service.
-coming soon...
+
+<h3> ver 1.2 </h3>
+<ul>
+	<li>
+	<b>New feature:</b> Add log4net. Logging success results, errors, exceptions and etc.
+	It has 4 files.
+	<ul>
+		<li> domainInfo.csv - contains 3 part separated by comma: token,subdomain,domain </li>
+		<li> YandexDynDNS.exe - file which executed from Windows Task Scheduler. </li>
+		<li> YandexDynDNS.exe.config - config file between YandexDynDNS.exe and log4net.dll. </li>
+		<li> log4net.dll - log4net library version 1.2.11. </li>
+	</ul>
+	</li>
+</ul>
 
 <h3> ver 1.1 </h3>
 <ul>
