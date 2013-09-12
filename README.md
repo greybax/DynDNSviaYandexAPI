@@ -4,9 +4,6 @@ DynDNSviaYandexAPI
 <h2>What is it? </h2>
 It's automatic tool for changed A-record your website, which delegeted on DNS Yandex. 
 
-<h3> ver 2.0 </h3>
-Planned make application as Windows Service.
-
 <h3> ver 1.2 </h3>
 <ul>
 	<li>
