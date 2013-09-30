@@ -4,10 +4,12 @@ DynDNSviaYandexAPI
 <h2>What is it? </h2>
 It's automatic tool for changed A-record your website, which delegeted on DNS Yandex. 
 
+You can download this tool from http://dns-ip.ru/Home/DynDns
+
 <h3> ver 1.2 </h3>
 <ul>
 	<li>
-	<b>New feature:</b> Add log4net. Logging success results, errors, exceptions and etc.
+	<b>New features:</b> Add log4net. Logging success results, errors, exceptions and etc.
 	It has 4 files.
 	<ul>
 		<li> domainInfo.csv - contains 3 part separated by comma: token,subdomain,domain </li>
@@ -21,7 +23,7 @@ It's automatic tool for changed A-record your website, which delegeted on DNS Ya
 <h3> ver 1.1 </h3>
 <ul>
 	<li>
-	<b>New feature:</b> Supported multi-domain change A-record.
+	<b>New features:</b> Supported multi-domain change A-record.
 	It has 2 files.
 	<ul>
 		<li> domainInfo.csv - contains 3 part separated by comma: token,subdomain,domain </li>
