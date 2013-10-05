@@ -178,10 +178,13 @@ namespace YandexDynDNS
                 var xmlDocument = new XmlDocument();
                 xmlDocument.LoadXml(result);
                 var isOk = xmlDocument.GetElementsByTagName("error")[0].InnerText;
+                var isSuccessfull = isOk.Equals("ok");
+                if (isSuccessfull) 
+                    Log.Info("A-record successfully edited");
+                else 
+                    Log.Warn("Attempt to edited A-record was unsuccessful");
 
-                Log.Info("A-record successfully edited");
-
-                return isOk.Equals("ok");
+                return isSuccessfull;
             }
             catch (Exception ex)
             {
