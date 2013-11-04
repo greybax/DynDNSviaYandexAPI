@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DdnsViaYandexApi", "DdnsViaYandexApi\DdnsViaYandexApi.csproj", "{B249A9C6-E11F-4927-8AEE-AE775A29CCCF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DdnsViaYandexApiGUI", "DdnsViaYandexApiGUI\DdnsViaYandexApiGUI.csproj", "{EFC54C14-3BF2-4BA5-8AFD-DB301FEBFC4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{B249A9C6-E11F-4927-8AEE-AE775A29CCCF}.Debug|x86.Build.0 = Debug|x86
 		{B249A9C6-E11F-4927-8AEE-AE775A29CCCF}.Release|x86.ActiveCfg = Release|x86
 		{B249A9C6-E11F-4927-8AEE-AE775A29CCCF}.Release|x86.Build.0 = Release|x86
+		{EFC54C14-3BF2-4BA5-8AFD-DB301FEBFC4E}.Debug|x86.ActiveCfg = Debug|x86
+		{EFC54C14-3BF2-4BA5-8AFD-DB301FEBFC4E}.Debug|x86.Build.0 = Debug|x86
+		{EFC54C14-3BF2-4BA5-8AFD-DB301FEBFC4E}.Release|x86.ActiveCfg = Release|x86
+		{EFC54C14-3BF2-4BA5-8AFD-DB301FEBFC4E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

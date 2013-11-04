@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DdnsViaYandexApi")]
+[assembly: AssemblyTitle("DdnsViaYandexApiGUI")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DdnsViaYandexApi")]
+[assembly: AssemblyProduct("DdnsViaYandexApiGUI")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -18,10 +18,8 @@ using System.Runtime.InteropServices;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-[assembly: log4net.Config.XmlConfigurator(Watch = true)]
-
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6f80cd1e-5bb3-4b68-b8a0-fc92b0058fb1")]
+[assembly: Guid("1daffdfb-8ae1-4011-81da-8dda9281c836")]
 
 // Version information for an assembly consists of the following four values:
 //

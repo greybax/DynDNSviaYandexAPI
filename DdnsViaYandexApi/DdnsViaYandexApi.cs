@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Xml;
 using System.Xml.Linq;
+using DdnsViaYandexApi.Services;
 using log4net;
 
 namespace DdnsViaYandexApi
@@ -14,15 +13,17 @@ namespace DdnsViaYandexApi
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(DdnsViaYandexApi));
 
-        public static void Main(string[] args)
+        public static string Start(string appPath)
         {
             Log.Info("Start application");
+
             var currentIp = GetCurrentIp();
             Log.Info("Your IP is: " + currentIp);
 
-            ChangeIpForDomainInfoCsv(currentIp);
+            ChangeIpForDomainInfoCsv(currentIp, appPath);
 
             Log.Info("Stop application");
+            return currentIp;
         }
 
         private static string GetCurrentIp()
@@ -50,88 +51,53 @@ namespace DdnsViaYandexApi
             return myCurrentIp;
         }
 
-        private static void ChangeIpForDomainInfoCsv(string myIp)
+        public static string GetLatestVersion()
         {
-            string[] allLines = File.ReadAllLines("domainInfo.csv");
+            var client = new WebClient();
 
-            foreach (var line in allLines)
+            var result = string.Empty;
+            try
             {
-                var domainList = ParseCsvRow(line);
-                var subdomain = string.IsNullOrWhiteSpace(domainList[1]) ? "@" : domainList[1];
+                result = client.DownloadString("http://dns-ip.ru/services/getversionddns.asmx/GetAppVersion");
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Oops! We couldn't get a version for updating:" + ex);
+                return result;
+            }
+
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(result);
+            var latestVersion = xmlDocument.GetElementsByTagName("string")[0].InnerText;
+
+            return latestVersion;
+        }
+
+        private static void ChangeIpForDomainInfoCsv(string myIp, string appPath)
+        {
+            var query = "SELECT * FROM DomainInfo";
+            var dataTable = DatabaseService.ExecuteSql(appPath, query);
+
+            for(int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                var row = dataTable.Rows[i];
+                var subdomain = string.IsNullOrWhiteSpace((string)row["SubDomain"]) ? "@" : (string)row["SubDomain"];
 
                 Thread.Sleep(300);
                 var recordId = GetDomainRecord(
                     "https://pddimp.yandex.ru/nsapi/get_domain_records.xml?" +
-                    "token=" + domainList[0] +
-                    "&domain=" + domainList[2], subdomain);
+                    "token=" + (string)row["Token"] +
+                    "&domain=" + (string)row["Domain"], subdomain);
 
                 Thread.Sleep(300);
                 EditARecord("https://pddimp.yandex.ru/nsapi/edit_a_record.xml?" +
-                            "token=" + domainList[0] +
-                            "&domain=" + domainList[2] +
+                            "token=" + (string)row["Token"] +
+                            "&domain=" + (string)row["Domain"] +
                             "&subdomain=" + subdomain +
                             "&record_id=" + recordId +
                             //"&[ttl=<время жизни записи>]" +
                             "&content=" + myIp);
             }
-        }
-
-        public static string[] ParseCsvRow(string r)
-        {
-            string[] c;
-            var resp = new List<string>();
-            bool cont = false;
-            string cs = "";
-
-            c = r.Split(new[] { ',' }, StringSplitOptions.None);
-
-            foreach (string y in c)
-            {
-                string x = y;
-
-                if (cont)
-                {
-                    // End of field
-                    if (x.EndsWith("\""))
-                    {
-                        cs += "," + x.Substring(0, x.Length - 1);
-                        resp.Add(cs);
-                        cs = "";
-                        cont = false;
-                        continue;
-                    }
-                    // Field still not ended
-                    cs += "," + x;
-                    continue;
-                }
-
-                // Fully encapsulated with no comma within
-                if (x.StartsWith("\"") && x.EndsWith("\""))
-                {
-                    if ((x.EndsWith("\"\"") && !x.EndsWith("\"\"\"")) && x != "\"\"")
-                    {
-                        cont = true;
-                        cs = x;
-                        continue;
-                    }
-
-                    resp.Add(x.Substring(1, x.Length - 2));
-                    continue;
-                }
-
-                // Start of encapsulation but comma has split it into at least next field
-                if (x.StartsWith("\"") && !x.EndsWith("\""))
-                {
-                    cont = true;
-                    cs += x.Substring(1);
-                    continue;
-                }
-
-                // Non encapsulated complete field
-                resp.Add(x);
-            }
-
-            return resp.ToArray();
         }
 
         private static string GetDomainRecord(string uri, string subdomain)
@@ -168,7 +134,7 @@ namespace DdnsViaYandexApi
             return string.Empty;
         }
 
-        private static bool EditARecord(string uri)
+        private static void EditARecord(string uri)
         {
             var client = new WebClient();
             try
@@ -178,18 +144,15 @@ namespace DdnsViaYandexApi
                 var xmlDocument = new XmlDocument();
                 xmlDocument.LoadXml(result);
                 var isOk = xmlDocument.GetElementsByTagName("error")[0].InnerText;
-                var isSuccessfull = isOk.Equals("ok");
-                if (isSuccessfull) 
+                if (isOk.Equals("ok")) 
                     Log.Info("A-record successfully edited");
                 else 
                     Log.Warn("Attempt to edited A-record was unsuccessful");
 
-                return isSuccessfull;
             }
             catch (Exception ex)
             {
                Log.Error("Oops! We couldn't edit A-record" + ex);
-               return false;
             }
         }
     }
