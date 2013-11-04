@@ -5,7 +5,26 @@ DynDNSviaYandexAPI
 It's automatic tool for changed A-record your website, which delegeted on DNS Yandex. 
 
 <h3> ver 2.0 </h3>
-Planned make application as Windows Service.
+<ul>
+	<li>
+	<b>New feature:</b>
+	<ul>
+		<li> Add GUI for application </li>
+		<li> Import/Export csv files </li>
+		<li> Refresh rate setting </li>
+		<li> Hide in tray windows </li>
+		<li> Storage data in SQLite database file </li>
+	</ul>
+	It has 5 files.
+	<ul>
+		<li> DbDomainInfo.db - SQLite database file </li>
+		<li> DdnsViaYandexApiGUI.exe - main executed file. </li>
+		<li> DdnsViaYandexApiGUI.exe.config - config file between DdnsViaYandexApi.exe and DbDomainInfo.db. </li>
+		<li> \x64\SQLite.Interop.dll - SQLite library for x64. </li>
+		<li> \x86\SQLite.Interop.dll - SQLite library for x86. </li>
+	</ul>
+	</li>
+</ul>
 
 <h3> ver 1.2 </h3>
 <ul>
