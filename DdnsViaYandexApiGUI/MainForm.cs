@@ -225,6 +225,25 @@ namespace DdnsViaYandexApiGUI
             if (!string.IsNullOrWhiteSpace(dialog.FileName))
                 CsvService.ExportTo(dialog.FileName, AppPath);
         }
+
+        private void dataGridViewDomainInfo_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            if (dataGridViewDomainInfo.Rows.Count == 0)
+                return;
+
+            try
+            {
+                //var id = dataGridViewDomainInfo.Rows[e.RowIndex].Cells["Id"].Value;
+                //var query = string.Format("DELETE FROM DomainInfo " +
+                //                         "WHERE Id = '{0}'", id);
+                //DatabaseService.ExecuteSql(Application.ExecutablePath, query);
+                GridFill();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
     }
 
     class GlobalClass

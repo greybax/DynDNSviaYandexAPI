@@ -88,6 +88,7 @@
             this.dataGridViewDomainInfo.Size = new System.Drawing.Size(486, 177);
             this.dataGridViewDomainInfo.TabIndex = 2;
             this.dataGridViewDomainInfo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDomainInfo_CellDoubleClick);
+            this.dataGridViewDomainInfo.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewDomainInfo_RowsRemoved);
             // 
             // tokenDataGridViewTextBoxColumn
             // 
