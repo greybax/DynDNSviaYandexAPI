@@ -11,6 +11,7 @@ It's automatic tool for changed A-record your website, which delegeted on DNS Ya
 	<ul>
 		<li> Add GUI for application </li>
 		<li> Import/Export csv files </li>
+		<li> Indicates about new updates of application </li>
 		<li> Refresh rate setting </li>
 		<li> Hide in tray windows </li>
 		<li> Storage data in SQLite database file </li>
