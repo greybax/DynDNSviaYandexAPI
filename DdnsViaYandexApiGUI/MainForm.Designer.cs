@@ -50,6 +50,7 @@
             this.buttonLog = new System.Windows.Forms.Button();
             this.btnImportFromCsv = new System.Windows.Forms.Button();
             this.btnExportToCsv = new System.Windows.Forms.Button();
+            this.labelVersion = new System.Windows.Forms.Label();
             this.groupBoxARecord.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDomainInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.domainInfoBindingSource)).BeginInit();
@@ -152,7 +153,7 @@
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(113, 23);
             this.buttonStart.TabIndex = 7;
-            this.buttonStart.Text = "Старт";
+            this.buttonStart.Text = "Стоп";
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
@@ -227,11 +228,21 @@
             this.btnExportToCsv.UseVisualStyleBackColor = true;
             this.btnExportToCsv.Click += new System.EventHandler(this.btnExportToCsv_Click);
             // 
+            // labelVersion
+            // 
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.Location = new System.Drawing.Point(354, 290);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(64, 13);
+            this.labelVersion.TabIndex = 17;
+            this.labelVersion.Text = "labelVersion";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(534, 312);
+            this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.btnExportToCsv);
             this.Controls.Add(this.btnImportFromCsv);
             this.Controls.Add(this.buttonLog);
@@ -247,8 +258,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "DDNS через Яндекс API v 2.0";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.Text = "DDNS через Яндекс API";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.groupBoxARecord.ResumeLayout(false);
@@ -282,6 +292,7 @@
         private System.Windows.Forms.Button buttonLog;
         private System.Windows.Forms.Button btnImportFromCsv;
         private System.Windows.Forms.Button btnExportToCsv;
+        private System.Windows.Forms.Label labelVersion;
     }
 }
 

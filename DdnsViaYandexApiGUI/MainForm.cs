@@ -10,9 +10,9 @@ namespace DdnsViaYandexApiGUI
 {
     public partial class MainForm : Form
     {
-        private const string _currentVersion = "2.0";
+        private const string _currentVersion = "2.0.1";
         private const string _refreshRateKey = "RefreshRate";
-        private bool _isServiceStarted;
+        private bool _isServiceStarted = true;
         private Thread _threadService;
         private readonly Thread _versionThread;
         delegate void SetTextCallback(string text);
@@ -31,6 +31,10 @@ namespace DdnsViaYandexApiGUI
             notifyIcon.Visible = false;
             ShowInTaskbar = false;
 
+            labelVersion.Text = "ver. " + _currentVersion;
+
+            StartService();
+
             _versionThread = new Thread(() =>
                 {
                     var version = DdnsViaYandexApi.DdnsViaYandexApi.GetLatestVersion();
@@ -39,7 +43,7 @@ namespace DdnsViaYandexApiGUI
 
                     // проверяем обновление раз в сутки
                     Thread.Sleep(1000*60*60*24);
-                });
+                }) {IsBackground = true};
 
             _versionThread.Start();
         }
@@ -151,7 +155,7 @@ namespace DdnsViaYandexApiGUI
 
         private void StartService()
         {
-            _threadService = new Thread(ServiceStart);
+            _threadService = new Thread(ServiceStart) {IsBackground = true};
             _threadService.Start();
         }
 
@@ -184,13 +188,6 @@ namespace DdnsViaYandexApiGUI
             {
                 textBoxCurrentIp.Text = text;
             }
-        }
-
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            StopService();
-            if (_versionThread != null)
-                _versionThread.Abort();
         }
 
         private void buttonLog_Click(object sender, EventArgs e)
@@ -233,10 +230,6 @@ namespace DdnsViaYandexApiGUI
 
             try
             {
-                //var id = dataGridViewDomainInfo.Rows[e.RowIndex].Cells["Id"].Value;
-                //var query = string.Format("DELETE FROM DomainInfo " +
-                //                         "WHERE Id = '{0}'", id);
-                //DatabaseService.ExecuteSql(Application.ExecutablePath, query);
                 GridFill();
             }
             catch (Exception ex)

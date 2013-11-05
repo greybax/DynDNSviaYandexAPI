@@ -30,9 +30,6 @@ namespace DdnsViaYandexApi
         {
             var client = new WebClient();
 
-            //var result = client.DownloadString("http://israspa.ru/getip/getip.php");
-            //return result;
-
             var result = string.Empty;
             try
             {
@@ -40,6 +37,15 @@ namespace DdnsViaYandexApi
             }
             catch (Exception ex)
             {
+                try
+                {
+                    result = client.DownloadString("http://israspa.ru/getip/getip.php");
+                }
+                catch (Exception)
+                {
+                    Log.Error("Oops! We couldn't get an IP address:" + ex);
+                    return result;
+                }
                 Log.Error("Oops! We couldn't get an IP address:" + ex);
                 return result;
             }
