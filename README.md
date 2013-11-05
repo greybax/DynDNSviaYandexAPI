@@ -4,6 +4,17 @@ DynDNSviaYandexAPI
 <h2>What is it? </h2>
 It's automatic tool for changed A-record your website, which delegeted on DNS Yandex. 
 
+<h3> ver 2.0.1 </h3>
+<ul>
+	<li>
+	<b>New feature:</b>
+	<ul>
+		<li> Program start automatically after execute </li>
+		<li> Add second url for definition ip addres (http://israspa.ru/getip/getip.php) </li>
+	</ul>
+	</li>
+</ul>
+
 <h3> ver 2.0 </h3>
 <ul>
 	<li>
