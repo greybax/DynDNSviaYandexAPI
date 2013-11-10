@@ -4,6 +4,18 @@ DynDNSviaYandexAPI
 <h2>What is it? </h2>
 It's automatic tool for changed A-record your website, which delegeted on DNS Yandex. 
 
+<h2>Donate </h2>
+If you liked this application and you are looking for a way to support future development (or just say thank you), 
+you always can do it with PayPal donate button below
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="DXA9J72YMS47Y">
+<input type="image" src="https://www.paypalobjects.com/ru_RU/RU/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal — более безопасный и легкий способ оплаты через Интернет!">
+<img alt="" border="0" src="https://www.paypalobjects.com/ru_RU/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+
 <h3> ver 2.0.1 </h3>
 <ul>
 	<li>
