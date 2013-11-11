@@ -21,6 +21,11 @@ DynDNSviaYandexAPI
 	</form>
 </p>
 
+<h2> System Requirements </h2>
+<ul>
+<li>OS Windows XP or high. Tested on Windows 7.</li>
+<li>.NET 4.0</li>
+</ul>
 
 <h3> ver 2.0.1 </h3>
 <ul>
@@ -92,10 +97,4 @@ DynDNSviaYandexAPI
 		<li> DdnsViaYandexApi.exe - file which executed from Windows Task Scheduler. </li>
 	</ul>
 	</li>
-</ul>
-
-<h3> System Requirements </h3>
-<ul>
-<li>OS Windows XP or high. Tested on Windows 7.</li>
-<li>.NET 4.0</li>
 </ul>
