@@ -31,6 +31,8 @@ DynDNSviaYandexAPI
 <li>.NET 4.0</li>
 </ul>
 
+<h2> Changelog </h2>
+
 <h3> ver 2.0.1 </h3>
 <ul>
 	<li>
