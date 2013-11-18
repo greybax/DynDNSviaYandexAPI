@@ -63,9 +63,6 @@
     <Compile Include="Services\SettingsService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="domainInfo.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
