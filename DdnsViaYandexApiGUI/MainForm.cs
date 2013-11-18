@@ -10,7 +10,7 @@ namespace DdnsViaYandexApiGUI
 {
     public partial class MainForm : Form
     {
-        private const string _currentVersion = "2.0.1";
+        private const string _currentVersion = "2.1.0";
         private const string _refreshRateKey = "RefreshRate";
         private bool _isServiceStarted = true;
         private Thread _threadService;
@@ -31,7 +31,7 @@ namespace DdnsViaYandexApiGUI
             notifyIcon.Visible = false;
             ShowInTaskbar = false;
 
-            labelVersion.Text = "ver. " + _currentVersion;
+            labelVersion.Text = "Версия. " + _currentVersion;
 
             StartService();
 
@@ -41,11 +41,11 @@ namespace DdnsViaYandexApiGUI
                     if (_currentVersion != version)
                         MessageBox.Show("Доступна новая версия программы: " + version + ". Для обновления зайдите на сайт http://dns-ip.ru/Home/DynDns.");
 
-                    // проверяем обновление раз в сутки
-                    Thread.Sleep(1000*60*60*24);
+                	// проверяем обновление раз в сутки
+                	Thread.Sleep(1000*60*60*24);
                 }) {IsBackground = true};
 
-            _versionThread.Start();
+        	_versionThread.Start();
         }
 
         private FormWindowState _oldFormState;
@@ -86,8 +86,7 @@ namespace DdnsViaYandexApiGUI
             }
             else
             {
-                var i = dataGridViewDomainInfo.Rows[e.RowIndex].Index;
-                var dif = new DomainInfoForm(null, null, this);
+            	var dif = new DomainInfoForm(null, null, this);
                 dif.Show();
             }
         }
@@ -187,20 +186,6 @@ namespace DdnsViaYandexApiGUI
             else
             {
                 textBoxCurrentIp.Text = text;
-            }
-        }
-
-        private void buttonLog_Click(object sender, EventArgs e)
-        {
-            if (Height == 340)
-            {
-                Height = 500;
-                buttonLog.Text = "Скрыть логи";
-            }
-            else
-            {
-                Height = 340;
-                buttonLog.Text = "Показать логи";
             }
         }
 
