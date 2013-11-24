@@ -37,7 +37,8 @@ namespace DdnsViaYandexApiGUI
 
             _versionThread = new Thread(() =>
                 {
-                    var version = DdnsViaYandexApi.DdnsViaYandexApi.GetLatestVersion();
+                    string strLogs = string.Empty;
+                    var version = DdnsViaYandexApi.DdnsViaYandexApi.GetLatestVersion(ref strLogs);
                     if (_currentVersion != version)
                         MessageBox.Show("Доступна новая версия программы: " + version + ". Для обновления зайдите на сайт http://dns-ip.ru/Home/DynDns.");
 
@@ -114,6 +115,9 @@ namespace DdnsViaYandexApiGUI
             {
                 StopService();
                 buttonStart.Text = "Старт";
+
+                richTextBoxLogs.Text += DateTime.Now + ": " + "Stop application";
+                richTextBoxLogs.Text += Environment.NewLine;
             }
             else
             {
@@ -142,6 +146,9 @@ namespace DdnsViaYandexApiGUI
             if (int.TryParse(tbRefreshRate.Text, out result))
             {
                 SettingsService.SetSetting(_refreshRateKey, tbRefreshRate.Text, AppPath);
+
+                richTextBoxLogs.Text += DateTime.Now + ": " + "Refresh rate saved and it equals " + tbRefreshRate.Text;
+                richTextBoxLogs.Text += Environment.NewLine;
                 if (_isServiceStarted)
                 {
                     StopService();
@@ -168,7 +175,10 @@ namespace DdnsViaYandexApiGUI
         {
             while (true)
             {
-                SetText(DdnsViaYandexApi.DdnsViaYandexApi.Start(AppPath));
+                var strLogs = string.Empty;
+                SetTextBoxCurrentIp(DdnsViaYandexApi.DdnsViaYandexApi.Start(AppPath, out strLogs));
+                RichTextBoxCurrentIp(strLogs);
+
                 var refreshRate = SettingsService.GetSetting(_refreshRateKey, AppPath);
                 int result;
                 if (int.TryParse(refreshRate, out result))
@@ -176,16 +186,29 @@ namespace DdnsViaYandexApiGUI
             }
         }
 
-        private void SetText(string text)
+        private void SetTextBoxCurrentIp(string text)
         {
             if (textBoxCurrentIp.InvokeRequired)
             {
-                SetTextCallback d = SetText;
+                SetTextCallback d = SetTextBoxCurrentIp;
                 Invoke(d, new object[] { text });
             }
             else
             {
                 textBoxCurrentIp.Text = text;
+            }
+        }
+
+        private void RichTextBoxCurrentIp(string text)
+        {
+            if (richTextBoxLogs.InvokeRequired)
+            {
+                SetTextCallback d = RichTextBoxCurrentIp;
+                Invoke(d, new object[] { text });
+            }
+            else
+            {
+                richTextBoxLogs.Text += text;
             }
         }
 

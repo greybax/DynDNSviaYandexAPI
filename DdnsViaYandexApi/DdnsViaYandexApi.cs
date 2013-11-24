@@ -13,20 +13,26 @@ namespace DdnsViaYandexApi
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(DdnsViaYandexApi));
 
-        public static string Start(string appPath)
+        public static string Start(string appPath, out string logString)
         {
             Log.Info("Start application");
 
-            var currentIp = GetCurrentIp();
+            logString = string.Empty;
+            logString += DateTime.Now + ": " + "Start application";
+            logString += Environment.NewLine;
+
+            var currentIp = GetCurrentIp(ref logString);
             Log.Info("Your IP is: " + currentIp);
 
-            ChangeIpForDomainInfoCsv(currentIp, appPath);
+            logString += DateTime.Now + ": " + "Your IP is: " + currentIp;
+            logString += Environment.NewLine;
 
-            Log.Info("Stop application");
+            ChangeIpForDomainInfoCsv(currentIp, appPath, ref logString);
+
             return currentIp;
         }
 
-        private static string GetCurrentIp()
+        private static string GetCurrentIp(ref string logString)
         {
             var client = new WebClient();
 
@@ -43,10 +49,18 @@ namespace DdnsViaYandexApi
                 }
                 catch (Exception)
                 {
-                    Log.Error("Oops! We couldn't get an IP address:" + ex);
+
+                    Log.Error("Oops! We couldn't get an IP address: " + ex);
+
+                    logString += DateTime.Now + ": " + "Oops! We couldn't get an IP address: " + ex;
+                    logString += Environment.NewLine;
+
                     return result;
                 }
-                Log.Error("Oops! We couldn't get an IP address:" + ex);
+                Log.Error("Oops! We couldn't get an IP address: " + ex);
+
+                logString += DateTime.Now + ": " + "Oops! We couldn't get an IP address: " + ex;
+                logString += Environment.NewLine;
                 return result;
             }
 
@@ -57,7 +71,7 @@ namespace DdnsViaYandexApi
             return myCurrentIp;
         }
 
-        public static string GetLatestVersion()
+        public static string GetLatestVersion(ref string logString)
         {
             var client = new WebClient();
 
@@ -68,7 +82,11 @@ namespace DdnsViaYandexApi
             }
             catch (Exception ex)
             {
-                Log.Error("Oops! We couldn't get a version for updating:" + ex);
+                Log.Error("Oops! We couldn't get a version for updating: " + ex);
+
+                logString += DateTime.Now + ": " + "Oops! We couldn't get a version for updating: " + ex;
+                logString += Environment.NewLine;
+
                 return result;
             }
 
@@ -79,7 +97,7 @@ namespace DdnsViaYandexApi
             return latestVersion;
         }
 
-        private static void ChangeIpForDomainInfoCsv(string myIp, string appPath)
+        private static void ChangeIpForDomainInfoCsv(string myIp, string appPath, ref string logString)
         {
             var query = "SELECT * FROM DomainInfo";
             var dataTable = DatabaseService.ExecuteSql(appPath, query);
@@ -93,7 +111,7 @@ namespace DdnsViaYandexApi
                 var recordId = GetDomainRecord(
                     "https://pddimp.yandex.ru/nsapi/get_domain_records.xml?" +
                     "token=" + (string)row["Token"] +
-                    "&domain=" + (string)row["Domain"], subdomain);
+                    "&domain=" + (string)row["Domain"], subdomain, ref logString);
 
                 Thread.Sleep(300);
                 EditARecord("https://pddimp.yandex.ru/nsapi/edit_a_record.xml?" +
@@ -102,11 +120,11 @@ namespace DdnsViaYandexApi
                             "&subdomain=" + subdomain +
                             "&record_id=" + recordId +
                             //"&[ttl=<время жизни записи>]" +
-                            "&content=" + myIp);
+                            "&content=" + myIp, ref logString);
             }
         }
 
-        private static string GetDomainRecord(string uri, string subdomain)
+        private static string GetDomainRecord(string uri, string subdomain, ref string logString)
         {
             var client = new WebClient();
             try
@@ -128,19 +146,27 @@ namespace DdnsViaYandexApi
                 {
                     var recordId = item.Attribute("id").Value;
                     Log.Info("URI: " + uri + " Subdomain: " + subdomain + " RecordId: " + recordId);
+
+                    logString += DateTime.Now + ": " + "URI: " + uri + " Subdomain: " + subdomain + " RecordId: " + recordId;
+                    logString += Environment.NewLine;
+
                     return recordId;
                 }
             }
             catch (Exception ex)
             {
-                Log.Error("Oops! We couldn't get domain record by recordId" + ex);
+                Log.Error("Oops! We couldn't get domain record by recordId: " + ex);
+
+                logString += DateTime.Now + ": " + "Oops! We couldn't get domain record by recordId: " + ex;
+                logString += Environment.NewLine;
+
                 return string.Empty;
             }
 
             return string.Empty;
         }
 
-        private static void EditARecord(string uri)
+        private static void EditARecord(string uri, ref string logString)
         {
             var client = new WebClient();
             try
@@ -150,15 +176,28 @@ namespace DdnsViaYandexApi
                 var xmlDocument = new XmlDocument();
                 xmlDocument.LoadXml(result);
                 var isOk = xmlDocument.GetElementsByTagName("error")[0].InnerText;
-                if (isOk.Equals("ok")) 
+                if (isOk.Equals("ok"))
+                {
                     Log.Info("A-record successfully edited");
-                else 
+
+                    logString += DateTime.Now + ": " + "A-record successfully edited";
+                    logString += Environment.NewLine;
+                }
+                else
+                {
                     Log.Warn("Attempt to edited A-record was unsuccessful");
+
+                    logString += DateTime.Now + ": " + "Attempt to edited A-record was unsuccessful";
+                    logString += Environment.NewLine;
+                }
 
             }
             catch (Exception ex)
             {
-               Log.Error("Oops! We couldn't edit A-record" + ex);
+               Log.Error("Oops! We couldn't edit A-record: " + ex);
+
+               logString += DateTime.Now + ": " + "Oops! We couldn't edit A-record: " + ex;
+               logString += Environment.NewLine;
             }
         }
     }
