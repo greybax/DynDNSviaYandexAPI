@@ -33,6 +33,16 @@ DynDNSviaYandexAPI
 
 <h2> Changelog </h2>
 
+<h3> ver 2.1.0 </h3>
+<ul>
+	<li>
+	<b>New feature:</b>
+	<ul>
+		<li> Add new tab in UI for logs </li>
+	</ul>
+	</li>
+</ul>
+
 <h3> ver 2.0.1 </h3>
 <ul>
 	<li>
