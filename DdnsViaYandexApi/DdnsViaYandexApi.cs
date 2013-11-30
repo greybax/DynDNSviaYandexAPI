@@ -18,8 +18,6 @@ namespace DdnsViaYandexApi
             Log.Info("Start application");
 
             logString = string.Empty;
-            logString += DateTime.Now + ": " + "Start application";
-            logString += Environment.NewLine;
 
             var currentIp = GetCurrentIp(ref logString);
             Log.Info("Your IP is: " + currentIp);

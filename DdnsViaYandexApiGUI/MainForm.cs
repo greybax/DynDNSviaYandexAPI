@@ -123,6 +123,9 @@ namespace DdnsViaYandexApiGUI
             {
                 StartService();
                 buttonStart.Text = "Стоп";
+
+                richTextBoxLogs.Text += DateTime.Now + ": " + "Start application";
+                richTextBoxLogs.Text += Environment.NewLine;
             }
             _isServiceStarted = !_isServiceStarted;
         }
