@@ -45,7 +45,7 @@ DynDNSviaYandexAPI
 	Rename  files.
 	<ul>
 		<li> DdnsViaYandexApiGUI.exe to GUI.exe - main executed file. </li>
-		<li> DdnsViaYandexApiGUI.exe.config to GUI.exe.config - config file between DdnsViaYandexApi.exe and DbDomainInfo.db. </li>
+		<li> DdnsViaYandexApiGUI.exe.config to GUI.exe.config - config file between GUI.exe and DbDomainInfo.db. </li>
 	</ul>
 	</li>
 </ul>
