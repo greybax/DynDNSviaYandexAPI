@@ -33,6 +33,23 @@ DynDNSviaYandexAPI
 
 <h2> Changelog </h2>
 
+<h3> ver 2.1.1 </h3>
+<ul>
+	<li>
+	<b>New feature:</b>
+	<ul>
+		<li> Changing setting TTL for domain record </li>
+		<li> Fixed minor bugs </li>
+	</ul>
+	</li>
+	Rename  files.
+	<ul>
+		<li> DdnsViaYandexApiGUI.exe to GUI.exe - main executed file. </li>
+		<li> DdnsViaYandexApiGUI.exe.config to GUI.exe.config - config file between DdnsViaYandexApi.exe and DbDomainInfo.db. </li>
+	</ul>
+	</li>
+</ul>
+
 <h3> ver 2.1.0 </h3>
 <ul>
 	<li>
