@@ -11,11 +11,10 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DomainInfoTableAdapter" GeneratorDataComponentClassName="DomainInfoTableAdapter" Name="DomainInfo" UserDataComponentName="DomainInfoTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="DbDomainInfoConnectionStringBin (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="DbDomainInfoConnectionStringBin (Settings)" DbObjectName="main.DomainInfo" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT        Token, SubDomain, Domain, Id
-FROM            DomainInfo</CommandText>
+                    <CommandText>SELECT Token, SubDomain, Domain FROM DomainInfo</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -25,7 +24,6 @@ FROM            DomainInfo</CommandText>
               <Mapping SourceColumn="Token" DataSetColumn="Token" />
               <Mapping SourceColumn="SubDomain" DataSetColumn="SubDomain" />
               <Mapping SourceColumn="Domain" DataSetColumn="Domain" />
-              <Mapping SourceColumn="Id" DataSetColumn="Id" />
             </Mappings>
             <Sources>
               <DbSource ConnectionRef="DbDomainInfoConnectionStringBin (Settings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="InsertQuery" Modifier="Public" Name="InsertQuery" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="InsertQuery">
@@ -68,7 +66,7 @@ WHERE        (SubDomain = @OldSubDomain) AND (Domain = @OldSomain)</CommandText>
   <xs:element name="DbDomainInfoDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="DbDomainInfoDataSet" msprop:Generator_UserDSName="DbDomainInfoDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="DomainInfo" msprop:Generator_TableClassName="DomainInfoDataTable" msprop:Generator_TableVarName="tableDomainInfo" msprop:Generator_TablePropName="DomainInfo" msprop:Generator_RowDeletingName="DomainInfoRowDeleting" msprop:Generator_UserTableName="DomainInfo" msprop:Generator_RowChangingName="DomainInfoRowChanging" msprop:Generator_RowEvHandlerName="DomainInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="DomainInfoRowDeleted" msprop:Generator_RowEvArgName="DomainInfoRowChangeEvent" msprop:Generator_RowChangedName="DomainInfoRowChanged" msprop:Generator_RowClassName="DomainInfoRow">
+        <xs:element name="DomainInfo" msprop:Generator_TableClassName="DomainInfoDataTable" msprop:Generator_TableVarName="tableDomainInfo" msprop:Generator_TablePropName="DomainInfo" msprop:Generator_RowDeletingName="DomainInfoRowDeleting" msprop:Generator_RowChangingName="DomainInfoRowChanging" msprop:Generator_RowEvHandlerName="DomainInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="DomainInfoRowDeleted" msprop:Generator_UserTableName="DomainInfo" msprop:Generator_RowChangedName="DomainInfoRowChanged" msprop:Generator_RowEvArgName="DomainInfoRowChangeEvent" msprop:Generator_RowClassName="DomainInfoRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Token" msprop:Generator_ColumnVarNameInTable="columnToken" msprop:Generator_ColumnPropNameInRow="Token" msprop:Generator_ColumnPropNameInTable="TokenColumn" msprop:Generator_UserColumnName="Token">
@@ -93,6 +91,7 @@ WHERE        (SubDomain = @OldSubDomain) AND (Domain = @OldSomain)</CommandText>
                 </xs:simpleType>
               </xs:element>
               <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="Ttl" msprop:Generator_ColumnVarNameInTable="columnTtl" msprop:Generator_ColumnPropNameInRow="Ttl" msprop:Generator_ColumnPropNameInTable="TtlColumn" msprop:Generator_UserColumnName="Ttl" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

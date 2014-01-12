@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace DdnsViaYandexApi.Services
+namespace Core.Services
 {
     public class CsvService
     {
@@ -14,8 +14,8 @@ namespace DdnsViaYandexApi.Services
             foreach (var line in allLines)
             {
                 var domainList = ParseCsvRow(line);
-                var query = string.Format("INSERT INTO DomainInfo Values ('{0}','{1}','{2}', null)",
-                    domainList[0], domainList[1], domainList[2]);
+                var query = string.Format("INSERT INTO DomainInfo (Id, Token, SubDomain, Domain, Ttl) Values (null, '{0}','{1}','{2}', '{3}')",
+                    domainList[0], domainList[1], domainList[2], domainList[3]);
                 DatabaseService.ExecuteSql(appPath, query);
             }
         }
@@ -25,12 +25,12 @@ namespace DdnsViaYandexApi.Services
             var query = string.Format("select * from DomainInfo");
             var dataTable = DatabaseService.ExecuteSql(appPath, query);
             var result = new StringBuilder();
-            const string template = "{0},{1},{2}\n";
+            const string template = "{0},{1},{2},{3}\n";
 
             for (var i = 0; i < dataTable.Rows.Count; i++)
             {
                 var row = dataTable.Rows[i];
-                result.AppendFormat(template, row["Token"], row["SubDomain"], row["Domain"]);
+                result.AppendFormat(template, row["Token"], row["SubDomain"], row["Domain"], row["Ttl"]);
             }
 
             File.WriteAllText(filePath, result.ToString());
@@ -38,16 +38,15 @@ namespace DdnsViaYandexApi.Services
 
         private static string[] ParseCsvRow(string line)
         {
-            string[] words;
             var responce = new List<string>();
-            bool cont = false;
-            string cs = "";
+            var cont = false;
+            var cs = "";
 
-            words = line.Split(new[] { ',', ';' }, StringSplitOptions.None);
+            var words = line.Split(new[] { ',', ';' }, StringSplitOptions.None);
 
             foreach (var word in words)
             {
-                string item = word;
+                var item = word;
 
                 if (cont)
                 {

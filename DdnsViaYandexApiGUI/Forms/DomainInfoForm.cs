@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using DdnsViaYandexApi.Services;
+using Core.Services;
 
-namespace DdnsViaYandexApiGUI
+namespace GUI.Forms
 {
     public partial class DomainInfoForm : Form
     {
@@ -33,9 +33,10 @@ namespace DdnsViaYandexApiGUI
                 buttonDelete.Enabled = true;
                 try
                 {
-                    textBoxToken.Text = GlobalClass.Dt.Rows[_rowId.Value]["Token"].ToString();
-                    textBoxSubDomain.Text = GlobalClass.Dt.Rows[_rowId.Value]["SubDomain"].ToString();
-                    textBoxDomain.Text = GlobalClass.Dt.Rows[_rowId.Value]["Domain"].ToString();
+                    textBoxToken.Text = DatabaseService.DataTable.Rows[_rowId.Value]["Token"].ToString();
+                    textBoxSubDomain.Text = DatabaseService.DataTable.Rows[_rowId.Value]["SubDomain"].ToString();
+                    textBoxDomain.Text = DatabaseService.DataTable.Rows[_rowId.Value]["Domain"].ToString();
+                    textBoxTtl.Text = DatabaseService.DataTable.Rows[_rowId.Value]["Ttl"].ToString();
                 }
                 catch (Exception ex)
                 {
@@ -58,10 +59,21 @@ namespace DdnsViaYandexApiGUI
                 return;
             }
 
-            var query = string.Format("INSERT INTO DomainInfo Values ('{0}','{1}','{2}', null)", 
-                textBoxToken.Text, textBoxSubDomain.Text, textBoxDomain.Text);
-            DatabaseService.ExecuteSql(Application.ExecutablePath, query);
-            _parentForm.GridFill();
+            int ttl;
+            if (int.TryParse(textBoxTtl.Text, out ttl) && ttl > 0)
+            {
+                var query =
+                    string.Format(
+                        "INSERT INTO DomainInfo (Id, Token, SubDomain, Domain, Ttl) Values (null, '{0}','{1}','{2}', '{3}')",
+                        textBoxToken.Text, textBoxDomain.Text, textBoxSubDomain.Text, ttl);
+                DatabaseService.ExecuteSql(Application.ExecutablePath, query);
+                _parentForm.GridFill();
+            }
+            else
+            {
+                MessageBox.Show("Поле 'TTL' должно быть положительным числом");
+                return;
+            }
 
             Close();
         }
@@ -82,12 +94,23 @@ namespace DdnsViaYandexApiGUI
                     return;
                 }
 
-                var query = string.Format("UPDATE DomainInfo " +
-                                          "Set Domain = '{0}', Subdomain = '{1}', Token = '{2}' " +
-                                          "where Id = '{3}'",
-                 textBoxDomain.Text, textBoxSubDomain.Text, textBoxToken.Text, _domainId.Value);
-                DatabaseService.ExecuteSql(Application.ExecutablePath, query);
-                _parentForm.GridFill();
+                int ttl;
+                if (int.TryParse(textBoxTtl.Text, out ttl) && ttl > 0)
+                {
+                    var query = string.Format("UPDATE DomainInfo " +
+                                              "Set Domain = '{0}', Subdomain = '{1}', Token = '{2}', Ttl = '{3}'" +
+                                              "where Id = '{4}'",
+                                              textBoxDomain.Text, textBoxSubDomain.Text, textBoxToken.Text, ttl,
+                                              _domainId.Value);
+                    DatabaseService.ExecuteSql(Application.ExecutablePath, query);
+                    _parentForm.GridFill();
+                }
+                else
+                {
+                    MessageBox.Show("Поле 'TTL' должно быть положительным числом");
+                    return;
+                }
+                
                 Close();
             }
             catch (Exception ex)

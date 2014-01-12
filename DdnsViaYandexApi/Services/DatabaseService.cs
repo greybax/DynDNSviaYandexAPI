@@ -4,12 +4,17 @@ using System.Data.SQLite;
 using System.IO;
 using log4net;
 
-namespace DdnsViaYandexApi.Services
+namespace Core.Services
 {
     public class DatabaseService
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(DdnsViaYandexApi));
-        
+
+        public static SQLiteCommandBuilder SqLiteCommandBuilder { get; set; }
+        public static SQLiteDataAdapter SqLiteDataAdapter { get; set; }
+        public static DataTable DataTable { get; set; }
+        public static SQLiteConnection SqLiteConnection { get; set; }
+
         public static DataTable ExecuteSql(string appPath, string sql)
         {
             var sqliteConnection = PrepareSql(appPath, sql);
@@ -68,6 +73,28 @@ namespace DdnsViaYandexApi.Services
                 Log.Error("Error executed sql query: " + ex.Message);
             }
             sqliteConnection.Close();
+        }
+
+        public static bool SqliteColumnExists(SQLiteCommand cmd, string table, string column)
+        {
+            lock (cmd.Connection)
+            {
+                cmd.Connection.Open();
+                // make sure table exists
+                cmd.CommandText = string.Format("SELECT sql FROM sqlite_master WHERE type = 'table' AND name = '{0}'", table);
+                var reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    bool hascol = reader.GetString(0).Contains(String.Format("\"{0}\"", column));
+                    reader.Close();
+                    cmd.Connection.Close();
+                    return hascol;
+                }
+                reader.Close();
+                cmd.Connection.Close();
+                return false;
+            }
         }
 
         private static SQLiteConnection PrepareSql(string appPath, string sql)

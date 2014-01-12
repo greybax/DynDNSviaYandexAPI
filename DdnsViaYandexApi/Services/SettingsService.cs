@@ -1,6 +1,6 @@
-﻿namespace DdnsViaYandexApi.Services
+﻿namespace Core.Services
 {
-    public class SettingsService
+    public static class SettingsService
     {
         public static string GetSetting(string key, string appPath)
         {

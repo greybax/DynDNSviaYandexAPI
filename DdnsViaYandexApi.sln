@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DdnsViaYandexApi", "DdnsViaYandexApi\DdnsViaYandexApi.csproj", "{B249A9C6-E11F-4927-8AEE-AE775A29CCCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "DdnsViaYandexApi\Core.csproj", "{B249A9C6-E11F-4927-8AEE-AE775A29CCCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DdnsViaYandexApiGUI", "DdnsViaYandexApiGUI\DdnsViaYandexApiGUI.csproj", "{EFC54C14-3BF2-4BA5-8AFD-DB301FEBFC4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "DdnsViaYandexApiGUI\GUI.csproj", "{EFC54C14-3BF2-4BA5-8AFD-DB301FEBFC4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

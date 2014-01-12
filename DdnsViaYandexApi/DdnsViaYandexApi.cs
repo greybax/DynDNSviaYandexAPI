@@ -4,10 +4,10 @@ using System.Net;
 using System.Threading;
 using System.Xml;
 using System.Xml.Linq;
-using DdnsViaYandexApi.Services;
+using Core.Services;
 using log4net;
 
-namespace DdnsViaYandexApi
+namespace Core
 {
     public class DdnsViaYandexApi
     {
@@ -100,7 +100,7 @@ namespace DdnsViaYandexApi
             var query = "SELECT * FROM DomainInfo";
             var dataTable = DatabaseService.ExecuteSql(appPath, query);
 
-            for(int i = 0; i < dataTable.Rows.Count; i++)
+            for(var i = 0; i < dataTable.Rows.Count; i++)
             {
                 var row = dataTable.Rows[i];
                 var subdomain = string.IsNullOrWhiteSpace((string)row["SubDomain"]) ? "@" : (string)row["SubDomain"];
@@ -117,7 +117,7 @@ namespace DdnsViaYandexApi
                             "&domain=" + (string)row["Domain"] +
                             "&subdomain=" + subdomain +
                             "&record_id=" + recordId +
-                            //"&[ttl=<время жизни записи>]" +
+                            "&ttl=" + row["Ttl"] +
                             "&content=" + myIp, ref logString);
             }
         }
@@ -188,7 +188,6 @@ namespace DdnsViaYandexApi
                     logString += DateTime.Now + ": " + "Attempt to edited A-record was unsuccessful";
                     logString += Environment.NewLine;
                 }
-
             }
             catch (Exception ex)
             {

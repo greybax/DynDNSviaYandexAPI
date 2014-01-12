@@ -1,4 +1,6 @@
-﻿namespace DdnsViaYandexApiGUI
+﻿using DdnsViaYandexApiGUI;
+
+namespace GUI.Forms
 {
     partial class MainForm
     {
@@ -31,9 +33,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.domainInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dbDomainInfoDataSet = new DdnsViaYandexApiGUI.DbDomainInfoDataSet();
-            this.domainInfoTableAdapter = new DdnsViaYandexApiGUI.DbDomainInfoDataSetTableAdapters.DomainInfoTableAdapter();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageSetting = new System.Windows.Forms.TabPage();
             this.btnExportToCsv = new System.Windows.Forms.Button();
@@ -47,20 +46,24 @@
             this.labelCurrentIp = new System.Windows.Forms.Label();
             this.groupBoxARecord = new System.Windows.Forms.GroupBox();
             this.dataGridViewDomainInfo = new System.Windows.Forms.DataGridView();
-            this.tokenDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subDomainDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.domainDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageLogs = new System.Windows.Forms.TabPage();
             this.richTextBoxLogs = new System.Windows.Forms.RichTextBox();
             this.labelVersion = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.domainInfoBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dbDomainInfoDataSet)).BeginInit();
+            this.tokenDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subDomainDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.domainDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.domainInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dbDomainInfoDataSet = new DdnsViaYandexApiGUI.DbDomainInfoDataSet();
+            this.domainInfoTableAdapter = new DdnsViaYandexApiGUI.DbDomainInfoDataSetTableAdapters.DomainInfoTableAdapter();
+            this.Ttl = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl.SuspendLayout();
             this.tabPageSetting.SuspendLayout();
             this.groupBoxARecord.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDomainInfo)).BeginInit();
             this.tabPageLogs.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.domainInfoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dbDomainInfoDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // notifyIcon
@@ -69,20 +72,6 @@
             this.notifyIcon.Text = "DDNS через Яндекс API";
             this.notifyIcon.Visible = true;
             this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
-            // 
-            // domainInfoBindingSource
-            // 
-            this.domainInfoBindingSource.DataMember = "DomainInfo";
-            this.domainInfoBindingSource.DataSource = this.dbDomainInfoDataSet;
-            // 
-            // dbDomainInfoDataSet
-            // 
-            this.dbDomainInfoDataSet.DataSetName = "DbDomainInfoDataSet";
-            this.dbDomainInfoDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // domainInfoTableAdapter
-            // 
-            this.domainInfoTableAdapter.ClearBeforeFill = true;
             // 
             // tabControl
             // 
@@ -215,7 +204,8 @@
             this.tokenDataGridViewTextBoxColumn,
             this.Id,
             this.subDomainDataGridViewTextBoxColumn,
-            this.domainDataGridViewTextBoxColumn});
+            this.domainDataGridViewTextBoxColumn,
+            this.Ttl});
             this.dataGridViewDomainInfo.DataSource = this.domainInfoBindingSource;
             this.dataGridViewDomainInfo.Location = new System.Drawing.Point(20, 18);
             this.dataGridViewDomainInfo.Name = "dataGridViewDomainInfo";
@@ -224,34 +214,12 @@
             this.dataGridViewDomainInfo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDomainInfo_CellDoubleClick);
             this.dataGridViewDomainInfo.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridViewDomainInfo_RowsRemoved);
             // 
-            // tokenDataGridViewTextBoxColumn
-            // 
-            this.tokenDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.tokenDataGridViewTextBoxColumn.DataPropertyName = "Token";
-            this.tokenDataGridViewTextBoxColumn.FillWeight = 150F;
-            this.tokenDataGridViewTextBoxColumn.HeaderText = "Token";
-            this.tokenDataGridViewTextBoxColumn.Name = "tokenDataGridViewTextBoxColumn";
-            // 
             // Id
             // 
             this.Id.DataPropertyName = "Id";
             this.Id.HeaderText = "Id";
             this.Id.Name = "Id";
             this.Id.Visible = false;
-            // 
-            // subDomainDataGridViewTextBoxColumn
-            // 
-            this.subDomainDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.subDomainDataGridViewTextBoxColumn.DataPropertyName = "SubDomain";
-            this.subDomainDataGridViewTextBoxColumn.HeaderText = "SubDomain";
-            this.subDomainDataGridViewTextBoxColumn.Name = "subDomainDataGridViewTextBoxColumn";
-            // 
-            // domainDataGridViewTextBoxColumn
-            // 
-            this.domainDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.domainDataGridViewTextBoxColumn.DataPropertyName = "Domain";
-            this.domainDataGridViewTextBoxColumn.HeaderText = "Domain";
-            this.domainDataGridViewTextBoxColumn.Name = "domainDataGridViewTextBoxColumn";
             // 
             // tabPageLogs
             // 
@@ -282,6 +250,48 @@
             this.labelVersion.TabIndex = 29;
             this.labelVersion.Text = "labelVersion";
             // 
+            // tokenDataGridViewTextBoxColumn
+            // 
+            this.tokenDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.tokenDataGridViewTextBoxColumn.DataPropertyName = "Token";
+            this.tokenDataGridViewTextBoxColumn.FillWeight = 150F;
+            this.tokenDataGridViewTextBoxColumn.HeaderText = "Token";
+            this.tokenDataGridViewTextBoxColumn.Name = "tokenDataGridViewTextBoxColumn";
+            // 
+            // subDomainDataGridViewTextBoxColumn
+            // 
+            this.subDomainDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.subDomainDataGridViewTextBoxColumn.DataPropertyName = "SubDomain";
+            this.subDomainDataGridViewTextBoxColumn.HeaderText = "SubDomain";
+            this.subDomainDataGridViewTextBoxColumn.Name = "subDomainDataGridViewTextBoxColumn";
+            // 
+            // domainDataGridViewTextBoxColumn
+            // 
+            this.domainDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.domainDataGridViewTextBoxColumn.DataPropertyName = "Domain";
+            this.domainDataGridViewTextBoxColumn.HeaderText = "Domain";
+            this.domainDataGridViewTextBoxColumn.Name = "domainDataGridViewTextBoxColumn";
+            // 
+            // domainInfoBindingSource
+            // 
+            this.domainInfoBindingSource.DataMember = "DomainInfo";
+            this.domainInfoBindingSource.DataSource = this.dbDomainInfoDataSet;
+            // 
+            // dbDomainInfoDataSet
+            // 
+            this.dbDomainInfoDataSet.DataSetName = "DbDomainInfoDataSet";
+            this.dbDomainInfoDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // domainInfoTableAdapter
+            // 
+            this.domainInfoTableAdapter.ClearBeforeFill = true;
+            // 
+            // Ttl
+            // 
+            this.Ttl.DataPropertyName = "Ttl";
+            this.Ttl.HeaderText = "Ttl";
+            this.Ttl.Name = "Ttl";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -296,14 +306,14 @@
             this.Text = "DDNS через Яндекс API";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
-            ((System.ComponentModel.ISupportInitialize)(this.domainInfoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dbDomainInfoDataSet)).EndInit();
             this.tabControl.ResumeLayout(false);
             this.tabPageSetting.ResumeLayout(false);
             this.tabPageSetting.PerformLayout();
             this.groupBoxARecord.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDomainInfo)).EndInit();
             this.tabPageLogs.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.domainInfoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dbDomainInfoDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -314,7 +324,7 @@
 		private System.Windows.Forms.NotifyIcon notifyIcon;
         private DbDomainInfoDataSet dbDomainInfoDataSet;
         private System.Windows.Forms.BindingSource domainInfoBindingSource;
-		private DbDomainInfoDataSetTableAdapters.DomainInfoTableAdapter domainInfoTableAdapter;
+		private DdnsViaYandexApiGUI.DbDomainInfoDataSetTableAdapters.DomainInfoTableAdapter domainInfoTableAdapter;
 		private System.Windows.Forms.TabControl tabControl;
 		private System.Windows.Forms.TabPage tabPageSetting;
 		private System.Windows.Forms.Button btnExportToCsv;
@@ -335,6 +345,7 @@
 		private System.Windows.Forms.TabPage tabPageLogs;
 		private System.Windows.Forms.Label labelVersion;
 		private System.Windows.Forms.RichTextBox richTextBoxLogs;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Ttl;
     }
 }
 

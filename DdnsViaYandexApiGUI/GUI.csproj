@@ -8,8 +8,8 @@
     <ProjectGuid>{EFC54C14-3BF2-4BA5-8AFD-DB301FEBFC4E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DdnsViaYandexApiGUI</RootNamespace>
-    <AssemblyName>DdnsViaYandexApiGUI</AssemblyName>
+    <RootNamespace>GUI</RootNamespace>
+    <AssemblyName>GUI</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -54,10 +54,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DomainInfoForm.cs">
+    <Compile Include="DbDomainInfoDataSet.cs">
+      <DependentUpon>DbDomainInfoDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\DomainInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DomainInfoForm.Designer.cs">
+    <Compile Include="Forms\DomainInfoForm.Designer.cs">
       <DependentUpon>DomainInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DbDomainInfoDataSet.Designer.cs">
@@ -65,18 +69,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DbDomainInfoDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DomainInfoForm.resx">
+    <EmbeddedResource Include="Forms\DomainInfoForm.resx">
       <DependentUpon>DomainInfoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -88,7 +92,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="DbDomainInfo.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -123,7 +129,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DdnsViaYandexApi\DdnsViaYandexApi.csproj">
+    <ProjectReference Include="..\DdnsViaYandexApi\Core.csproj">
       <Project>{B249A9C6-E11F-4927-8AEE-AE775A29CCCF}</Project>
       <Name>DdnsViaYandexApi</Name>
     </ProjectReference>
