@@ -25,9 +25,6 @@ DynDNSviaYandexAPI
 	</form>
 </p>
 
-<div>bitcoin:<b>153DuJ2GM47XGbNbsPF1dMRRqmU5x3q1Y9</b></div>
-<div>litecoin:<b>LVanrzk4Wj4rmH9dYC3N31BmSLyNHVK8DG</b></div>
-
 <h2> System Requirements </h2>
 <ul>
 <li>OS Windows XP or high. Tested on Windows 7.</li>
