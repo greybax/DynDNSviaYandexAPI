@@ -107,7 +107,7 @@ DynDNSviaYandexAPI
 	It has 3 files.
 	<ul>
 		<li> domain.txt - Name of your website </li>
-		<li> token.txt - token you get for this website when you delegeted it on Yandex DNS. How you can get it - (http://api.yandex.ru/pdd/doc/api-pdd/reference/api-dns_get_token.xml#api-dns_get_token). </li>
+		<li> token.txt - token you get for this website when you delegeted it on Yandex DNS. How you can get it - (https://pddimp.yandex.ru/api2/admin/get_token). </li>
 		<li> DdnsViaYandexApi.exe - file which executed from Windows Task Scheduler. </li>
 	</ul>
 	</li>
